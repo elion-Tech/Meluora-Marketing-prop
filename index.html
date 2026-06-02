@@ -126,17 +126,19 @@
         .signature .name { color: var(--teal); font-weight: bold; font-size: 18px; }
 
         .main-logo {
-            max-width: 180px;
+            max-width: 140px;
             height: auto;
-            margin: 0 auto 30px;
-            display: block;
         }
 
         /* Currency Toggle Styles */
         .controls {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
+        }
+        .currency-buttons {
+            display: flex;
             gap: 10px;
         }
         .controls button {
@@ -174,12 +176,14 @@
     </header>
 
     <div class="controls">
-        <button id="btn-ngn" class="active" onclick="updateCurrency('NGN')">₦ NGN</button>
-        <button id="btn-cad" onclick="updateCurrency('CAD')">$ CAD</button>
+        <img src="Meluora-LOGO-Green-1-scaled (2).png" alt="Meluora Solutions Logo" class="main-logo">
+        <div class="currency-buttons">
+            <button id="btn-ngn" class="active" onclick="updateCurrency('NGN')">₦ NGN</button>
+            <button id="btn-cad" onclick="updateCurrency('CAD')">$ CAD</button>
+        </div>
     </div>
 
     <section class="cover">
-        <img src="Meluora-LOGO-Green-1-scaled (2).png" alt="Meluora Solutions Logo" class="main-logo">
         <h1>KOKO MARKETPLACE</h1>
         <h2>Marketing Strategy & Proposal</h2>
         <div class="prepared-box">
@@ -267,7 +271,7 @@
     </ul>
 
     <h3>6.2 The Ambassadorial offer (Phased Rollout)</h3>
-    <p>Starting in **Month 3**, we will recruit 10–15 "Koko Champions" in high-density markets (Lagos, Abuja, Port Harcourt) and major university campuses.</p>
+    <p>Starting in Month 3, we will recruit 10–15 "Koko Champions" in high-density markets (Lagos, Abuja, Port Harcourt) and major university campuses.</p>
     <ul>
         <li><strong>Recruitment:</strong> Focused on campus leaders, micro-influencers, and the most active 1% of Koko users.</li>
         <li><strong>Primary Tasks:</strong> Local "negotiation" workshops, campus demo sessions, and content creation for TikTok/Reels.</li>
