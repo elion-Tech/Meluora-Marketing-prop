@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koko Marketplace - Marketing Strategy & Proposal</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --teal: #0F6E56;
@@ -141,6 +142,20 @@
             font-weight: bold;
         }
         .controls button.active { background: var(--teal); color: var(--white); }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .chart-box {
+            background: var(--white);
+            border: 1px solid var(--light-border);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -278,6 +293,18 @@
 
     <h2>8. Analytics & Reporting</h2>
     <p>Monthly reporting on downloads, active users, engagement rates, and ad performance.</p>
+
+    <h1>Visual Strategy Overview</h1>
+    <div class="charts-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0">Monthly Retainer Allocation</h3>
+            <canvas id="budgetChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0">6-Month Growth Projection</h3>
+            <canvas id="kpiChart"></canvas>
+        </div>
+    </div>
 
     <h1>Revised 6-Month Success Targets</h1>
     <table>
@@ -469,6 +496,44 @@
 
 <script>
     const EX_RATE = 1150; // 1 CAD = 1150 NGN (approximate)
+    let budgetChart;
+    let kpiChart;
+    const BUDGET_VALUES = [300000, 400000, 200000, 250000, 200000, 150000];
+    const KPI_CURRENT = [2000, 2000];
+    const KPI_TARGETS = [15000, 7000];
+
+    // Initialize Charts
+    window.onload = function() {
+        const ctxBudget = document.getElementById('budgetChart').getContext('2d');
+        budgetChart = new Chart(ctxBudget, {
+            type: 'doughnut',
+            data: {
+                labels: ['Strategy', 'Content', 'Motion', 'Video', 'Social', 'Campaigns'],
+                datasets: [{
+                    data: BUDGET_VALUES,
+                    backgroundColor: ['#0F6E56', '#1D9E75', '#E1F5EE', '#444441', '#CCCCCC', '#1A1A1A'],
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+
+        const ctxKpi = document.getElementById('kpiChart').getContext('2d');
+        kpiChart = new Chart(ctxKpi, {
+            type: 'bar',
+            data: {
+                labels: ['Downloads', 'Active Users'],
+                datasets: [
+                    { label: 'Current', data: [2000, 2000], backgroundColor: '#444441' },
+                    { label: '6-Month Target', data: [15000, 7000], backgroundColor: '#0F6E56' }
+                ]
+            },
+            options: { 
+                responsive: true, 
+                scales: { y: { beginAtZero: true } },
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    };
 
     function updateCurrency(currency) {
         const prices = document.querySelectorAll('.price');
@@ -496,6 +561,18 @@
                 p.innerText = format(val);
             }
         });
+
+        if (budgetChart) {
+            const newData = BUDGET_VALUES.map(v => currency === 'CAD' ? (v / EX_RATE) : v);
+            budgetChart.data.datasets[0].data = newData;
+            budgetChart.update();
+        }
+
+        if (kpiChart) {
+            // We don't convert units like 'Downloads', but if we did, we'd update them here.
+            // For now, this ensures the chart is refreshed if any labels needed to change.
+            kpiChart.update();
+        }
     }
 </script>
 </body>

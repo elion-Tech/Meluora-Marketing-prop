@@ -5,6 +5,7 @@ const {
   TabStopPosition, ImageRun
 } = require('docx');
 const fs = require('fs');
+const https = require('https');
 
 const TEAL = "0F6E56";
 const TEAL_LIGHT = "E1F5EE";
@@ -20,6 +21,20 @@ const noBorder = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
 const noBorders = { top: noBorder, bottom: noBorder, left: noBorder, right: noBorder };
 
 const tableWidth = 9360;
+const EX_RATE = 1150; // 1 CAD = 1150 NGN
+
+async function getChartImage(config) {
+  const url = `https://quickchart.io/chart?c=${encodeURIComponent(JSON.stringify(config))}&w=500&h=300`;
+  return new Promise((resolve) => {
+    https.get(url, (res) => {
+      const data = [];
+      res.on('data', (chunk) => data.push(chunk));
+      res.on('end', () => resolve(Buffer.concat(data)));
+    });
+  });
+}
+
+const formatCAD = (ngn) => `~ $${Math.round(ngn / EX_RATE).toLocaleString()} CAD`;
 
 function heading1(text) {
   return new Paragraph({
@@ -100,7 +115,29 @@ function budgetRow(category, amount, notes, shaded = false) {
   return new TableRow({ children: [cell(category, 3120), cell(amount, 2120, true), cell(notes, 4120)] });
 }
 
-const doc = new Document({
+async function generate() {
+  const budgetChartImg = await getChartImage({
+    type: 'doughnut',
+    data: {
+      labels: ['Strategy', 'Content', 'Motion', 'Video', 'Social', 'Campaigns'],
+      datasets: [{ data: [300000, 400000, 200000, 250000, 200000, 150000], backgroundColor: ['#0F6E56', '#1D9E75', '#E1F5EE', '#444441', '#CCCCCC', '#1A1A1A'] }]
+    },
+    options: { plugins: { legend: { position: 'bottom' } } }
+  });
+
+  const kpiChartImg = await getChartImage({
+    type: 'bar',
+    data: {
+      labels: ['Downloads', 'Active Users'],
+      datasets: [
+        { label: 'Current', data: [2000, 2000], backgroundColor: '#444441' },
+        { label: '6-Month Target', data: [15000, 7000], backgroundColor: '#0F6E56' }
+      ]
+    },
+    options: { scales: { y: { beginAtZero: true } } }
+  });
+
+  const doc = new Document({
   numbering: {
     config: [
       {
@@ -321,6 +358,20 @@ const doc = new Document({
       body("Timeline: Weeks 1–2 | Email infrastructure setup; Week 3+ | Campaign execution", { italics: true, color: MID }),
       ...spacer(1),
 
+      // VISUAL STRATEGY
+      heading1("Visual Strategy Overview"),
+      sectionDivider(),
+      body("Monthly Retainer Allocation & 6-Month Growth Projection:", { bold: true }),
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        children: [
+          new ImageRun({ data: budgetChartImg, transformation: { width: 300, height: 180 } }),
+          new TextRun({ text: "    " }), // spacing
+          new ImageRun({ data: kpiChartImg, transformation: { width: 300, height: 180 } }),
+        ]
+      }),
+      ...spacer(1),
+
       // KPIs
       heading1("Measurement & KPIs"),
       sectionDivider(),
@@ -343,7 +394,7 @@ const doc = new Document({
           }),
           metricRow("Monthly Active Users", "~2,000", "10,000", "50,000", true),
           metricRow("Daily Active Users", "Unknown", "2,000", "10,000"),
-          metricRow("App Downloads", "2,000", "15,000", "75,000", true),
+          metricRow("App Downloads", "2,000", "7,000", "15,000", true),
           metricRow("Day 7 Retention", "Unknown", "40%", "55%"),
           metricRow("Day 30 Retention", "Unknown", "20%", "35%", true),
           metricRow("Instagram Followers", "—", "5,000", "25,000"),
@@ -415,23 +466,20 @@ const doc = new Document({
               })
             )
           }),
-          budgetRow("Paid Advertising", "N1,550,000", "Google, Meta, TikTok", true),
-          budgetRow("Meluora Services", "N1,000,000", "Team allocation & management"),
-          budgetRow("Content Creation", "N400,000", "Video production, graphics", true),
-          budgetRow("Ambassador Program", "N300,000", "Stipends & incentives (40 ambassadors)"),
-          budgetRow("Events & Activations", "N150,000", "Roadshows, pop-ups, webinars", true),
-          budgetRow("Tools & Software", "N100,000", "Email platform, analytics, scheduling"),
-          budgetRow("Contingency", "N100,000", "Buffer for opportunities", true),
+          budgetRow("Monthly Retainer", "N1,500,000", "Strategy, Content, Motion, Video, Social", true),
+          budgetRow("Advertising Budget (Rec.)", "N1,300,000", "Meta, Google, TikTok Ads"),
+          budgetRow("Ambassador Pilot (Month 3+)", "N300,000", "Incentives, Merchandise, Stipends", true),
+          budgetRow("Contingency / Tools", "N100,000", "Buffer & software subscriptions"),
           new TableRow({
             children: [
               new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 3120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "TOTAL", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "N3,600,000", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "~$7,200 USD per month", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "N3,200,000", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: formatCAD(3200000) + " per month", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
             ]
           }),
         ]
       }),
-      body("6-Month Total Investment: N21,600,000 (~$43,200 USD)", { bold: true }),
+      body("6-Month Total Investment: N19,200,000 (" + formatCAD(19200000) + ")", { bold: true }),
       ...spacer(1),
 
       // RISK
@@ -511,7 +559,10 @@ const doc = new Document({
   }]
 });
 
-Packer.toBuffer(doc).then(buf => {
-  fs.writeFileSync("/mnt/user-data/outputs/Koko_Marketing_Proposal.docx", buf);
-  console.log("Done");
-});
+  Packer.toBuffer(doc).then(buf => {
+    fs.writeFileSync("Koko_Marketing_Proposal.docx", buf);
+    console.log("Proposal generated successfully: Koko_Marketing_Proposal.docx");
+  });
+}
+
+generate();
