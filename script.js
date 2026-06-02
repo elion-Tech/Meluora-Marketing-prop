@@ -116,6 +116,7 @@ function budgetRow(category, amount, notes, shaded = false) {
 }
 
 async function generate() {
+  const logoImg = fs.readFileSync('Meluora-LOGO-Green-1-scaled (2).png');
   const budgetChartImg = await getChartImage({
     type: 'doughnut',
     data: {
@@ -183,7 +184,7 @@ async function generate() {
             border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: TEAL_MID, space: 4 } },
             children: [
               new TextRun({ text: "Koko Marketplace  |  Marketing Strategy & Proposal", size: 18, font: "Arial", color: MID }),
-              new TextRun({ text: "  |  Meluora Consulting", size: 18, font: "Arial", color: TEAL }),
+              new TextRun({ text: "  |  Meluora Solutions", size: 18, font: "Arial", color: TEAL }),
             ]
           })
         ]
@@ -207,6 +208,11 @@ async function generate() {
     },
     children: [
       // COVER
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { before: 200, after: 200 },
+        children: [new ImageRun({ data: logoImg, transformation: { width: 120, height: 120 } })]
+      }),
       ...spacer(3),
       new Paragraph({
         alignment: AlignmentType.CENTER,
@@ -229,7 +235,7 @@ async function generate() {
           margins: { top: 200, bottom: 200, left: 300, right: 300 },
           children: [
             new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Prepared for: King Kosi & Koko Team", size: 22, font: "Arial", color: TEAL })] }),
-            new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Prepared by: Meluora Consulting", size: 22, font: "Arial", color: TEAL })] }),
+            new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Prepared by: Meluora Solutions", size: 22, font: "Arial", color: TEAL })] }),
             new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Date: June 1, 2026  |  Delivery Target: June 6, 2026", size: 22, font: "Arial", color: TEAL })] }),
           ]
         })]})]}),
@@ -308,7 +314,16 @@ async function generate() {
       ...spacer(1),
 
       heading2("3. Community Building & Grassroots Marketing"),
-      body("Establish on-the-ground presence across Nigeria through student ambassadors, local influencers, and community partnerships."),
+      new Paragraph({
+        spacing: { before: 60, after: 100 },
+        children: [
+          new TextRun({ text: "Establish on-the-ground presence across Nigeria through student ambassadors, local influencers, and community partnerships. We propose a dual-layered approach to community growth: a broad ", size: 22, font: "Arial", color: DARK }),
+          new TextRun({ text: "Referral Engine", size: 22, font: "Arial", color: DARK, italics: true }),
+          new TextRun({ text: " for all users and a curated ", size: 22, font: "Arial", color: DARK }),
+          new TextRun({ text: "Ambassador Pilot", size: 22, font: "Arial", color: DARK, italics: true }),
+          new TextRun({ text: " for high-impact advocates.", size: 22, font: "Arial", color: DARK }),
+        ]
+      }),
       heading3("Student Ambassador Program"),
       bullet("Structure: 1–2 ambassadors per state (~40 ambassadors across 36 states + FCT)"),
       bullet("Responsibilities: campus promotion, demo sessions, local content creation, user feedback"),
@@ -356,6 +371,15 @@ async function generate() {
       bullet("Re-engagement Campaigns: for inactive users"),
       bullet("Promotional Campaigns: flash sales, referral bonuses, educational content"),
       body("Timeline: Weeks 1–2 | Email infrastructure setup; Week 3+ | Campaign execution", { italics: true, color: MID }),
+      ...spacer(1),
+
+      heading2("7. Strategic Influencer Partnerships (Optional)"),
+      body("Beyond standard influencer ads, we source and manage niche-aligned creators to build long-term brand equity and trust within target demographics."),
+      bullet("Influencer Sourcing: Identifying creators who embody the 'negotiation savvy' brand persona"),
+      bullet("Contract Management: Negotiating deliverables, usage rights, and performance-based bonuses"),
+      bullet("Creative Direction: Ensuring content aligns with Koko's brand pillars while remaining authentic to the creator's voice"),
+      bullet("Performance Tracking: Monitoring direct impact on installs and listing activity via unique codes"),
+      body("Timeline: Week 4+ | Identification & initial outreach", { italics: true, color: MID }),
       ...spacer(1),
 
       // VISUAL STRATEGY
@@ -467,19 +491,20 @@ async function generate() {
             )
           }),
           budgetRow("Monthly Retainer", "N1,500,000", "Strategy, Content, Motion, Video, Social", true),
-          budgetRow("Advertising Budget (Rec.)", "N1,300,000", "Meta, Google, TikTok Ads"),
-          budgetRow("Ambassador Pilot (Month 3+)", "N300,000", "Incentives, Merchandise, Stipends", true),
+          budgetRow("Advertising Budget (Rec.)", "N1,000,000", "Meta, Google, TikTok, Retargeting"),
+          budgetRow("Ambassador Pilot (Month 3+)", "N300,000", "Incentives, Merchandise, Stipends (200k)", true),
+          budgetRow("Influencer Management (Opt.)", "N500,000+", "Optional: Sourcing, Partnership fees & Management"),
           budgetRow("Contingency / Tools", "N100,000", "Buffer & software subscriptions"),
           new TableRow({
             children: [
               new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 3120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "TOTAL", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "N3,200,000", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: formatCAD(3200000) + " per month", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "N2,900,000+", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "Base: " + formatCAD(2900000) + " / month", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
             ]
           }),
         ]
       }),
-      body("6-Month Total Investment: N19,200,000 (" + formatCAD(19200000) + ")", { bold: true }),
+      body("Estimated 6-Month Total (Base): N17,400,000 (" + formatCAD(17400000) + ")", { bold: true }),
       ...spacer(1),
 
       // RISK
@@ -549,7 +574,7 @@ async function generate() {
       new Paragraph({
         alignment: AlignmentType.CENTER,
         spacing: { before: 200, after: 100 },
-        children: [new TextRun({ text: "Kenneth Nwafor  |  Meluora Team Lead", size: 22, font: "Arial", bold: true, color: TEAL })]
+        children: [new TextRun({ text: "Kenneth Nwafor  |  Meluora Solutions Lead", size: 22, font: "Arial", bold: true, color: TEAL })]
       }),
       new Paragraph({
         alignment: AlignmentType.CENTER,
