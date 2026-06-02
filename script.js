@@ -7,13 +7,15 @@ const {
 const fs = require('fs');
 const https = require('https');
 
-const TEAL = "0F6E56";
-const TEAL_LIGHT = "E1F5EE";
-const TEAL_MID = "1D9E75";
-const DARK = "1A1A1A";
-const MID = "444441";
-const LIGHT_BORDER = "CCCCCC";
+const TEAL = "0B2B26"; // Rich Evergreen
+const TEAL_LIGHT = "DAF1DE"; // Mist White
+const TEAL_MID = "8EB69B"; // Growth Green
+const DARK = "051F20"; // Deep Forest Black
+const MID = "235347"; // Deep Teal Green
+const LIGHT_BORDER = "8EB69B"; 
 const WHITE = "FFFFFF";
+const HEADING_FONT = "Montserrat";
+const BODY_FONT = "Inter";
 
 const border = { style: BorderStyle.SINGLE, size: 1, color: LIGHT_BORDER };
 const borders = { top: border, bottom: border, left: border, right: border };
@@ -40,7 +42,7 @@ function heading1(text) {
   return new Paragraph({
     heading: HeadingLevel.HEADING_1,
     spacing: { before: 360, after: 120 },
-    children: [new TextRun({ text, bold: true, size: 32, font: "Arial", color: DARK })]
+    children: [new TextRun({ text, bold: true, size: 32, font: HEADING_FONT, color: DARK })]
   });
 }
 
@@ -48,7 +50,7 @@ function heading2(text) {
   return new Paragraph({
     heading: HeadingLevel.HEADING_2,
     spacing: { before: 240, after: 80 },
-    children: [new TextRun({ text, bold: true, size: 26, font: "Arial", color: TEAL })]
+    children: [new TextRun({ text, bold: true, size: 26, font: HEADING_FONT, color: TEAL })]
   });
 }
 
@@ -56,14 +58,14 @@ function heading3(text) {
   return new Paragraph({
     heading: HeadingLevel.HEADING_3,
     spacing: { before: 180, after: 60 },
-    children: [new TextRun({ text, bold: true, size: 22, font: "Arial", color: MID })]
+    children: [new TextRun({ text, bold: true, size: 22, font: HEADING_FONT, color: MID })]
   });
 }
 
 function body(text, opts = {}) {
   return new Paragraph({
     spacing: { before: 60, after: 100 },
-    children: [new TextRun({ text, size: 22, font: "Arial", color: DARK, ...opts })]
+    children: [new TextRun({ text, size: 22, font: BODY_FONT, color: DARK, ...opts })]
   });
 }
 
@@ -71,7 +73,7 @@ function bullet(text, level = 0) {
   return new Paragraph({
     numbering: { reference: "bullets", level },
     spacing: { before: 40, after: 40 },
-    children: [new TextRun({ text, size: 22, font: "Arial", color: DARK })]
+    children: [new TextRun({ text, size: 22, font: BODY_FONT, color: DARK })]
   });
 }
 
@@ -98,7 +100,7 @@ function metricRow(metric, baseline, month3, month6, shaded = false) {
     width: { size: 2340, type: WidthType.DXA },
     shading: { fill, type: ShadingType.CLEAR },
     margins: { top: 80, bottom: 80, left: 120, right: 120 },
-    children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: "Arial", bold, color: bold ? TEAL : DARK })] })]
+    children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: BODY_FONT, bold, color: bold ? TEAL : DARK })] })]
   });
   return new TableRow({ children: [cell(metric), cell(baseline), cell(month3, true), cell(month6, true)] });
 }
@@ -110,7 +112,7 @@ function budgetRow(category, amount, notes, shaded = false) {
     width: { size: w, type: WidthType.DXA },
     shading: { fill, type: ShadingType.CLEAR },
     margins: { top: 80, bottom: 80, left: 120, right: 120 },
-    children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: "Arial", bold, color: bold ? TEAL : DARK })] })]
+    children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: BODY_FONT, bold, color: bold ? TEAL : DARK })] })]
   });
   return new TableRow({ children: [cell(category, 3120), cell(amount, 2120, true), cell(notes, 4120)] });
 }
@@ -121,7 +123,7 @@ async function generate() {
     type: 'doughnut',
     data: {
       labels: ['Strategy', 'Content', 'Motion', 'Video', 'Social', 'Campaigns'],
-      datasets: [{ data: [300000, 400000, 200000, 250000, 200000, 150000], backgroundColor: ['#0F6E56', '#1D9E75', '#E1F5EE', '#444441', '#CCCCCC', '#1A1A1A'] }]
+      datasets: [{ data: [300000, 400000, 200000, 250000, 200000, 150000], backgroundColor: ['#051F20', '#0B2B26', '#163832', '#235347', '#8EB69B', '#DAF1DE'] }]
     },
     options: { plugins: { legend: { position: 'bottom' } } }
   });
@@ -131,8 +133,8 @@ async function generate() {
     data: {
       labels: ['Downloads', 'Active Users'],
       datasets: [
-        { label: 'Current', data: [2000, 2000], backgroundColor: '#444441' },
-        { label: '6-Month Target', data: [15000, 7000], backgroundColor: '#0F6E56' }
+        { label: 'Current', data: [2000, 2000], backgroundColor: '#235347' },
+        { label: '6-Month Target', data: [15000, 7000], backgroundColor: '#0B2B26' }
       ]
     },
     options: { scales: { y: { beginAtZero: true } } }
@@ -156,16 +158,16 @@ async function generate() {
     ]
   },
   styles: {
-    default: { document: { run: { font: "Arial", size: 22 } } },
+    default: { document: { run: { font: BODY_FONT, size: 22 } } },
     paragraphStyles: [
       { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true,
-        run: { size: 32, bold: true, font: "Arial", color: DARK },
+        run: { size: 32, bold: true, font: HEADING_FONT, color: DARK },
         paragraph: { spacing: { before: 360, after: 120 }, outlineLevel: 0 } },
       { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true,
-        run: { size: 26, bold: true, font: "Arial", color: TEAL },
+        run: { size: 26, bold: true, font: HEADING_FONT, color: TEAL },
         paragraph: { spacing: { before: 240, after: 80 }, outlineLevel: 1 } },
       { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true,
-        run: { size: 22, bold: true, font: "Arial", color: MID },
+        run: { size: 22, bold: true, font: HEADING_FONT, color: MID },
         paragraph: { spacing: { before: 180, after: 60 }, outlineLevel: 2 } },
     ]
   },
@@ -183,8 +185,8 @@ async function generate() {
             spacing: { after: 80 },
             border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: TEAL_MID, space: 4 } },
             children: [
-              new TextRun({ text: "Koko Marketplace  |  Marketing Strategy & Proposal", size: 18, font: "Arial", color: MID }),
-              new TextRun({ text: "  |  Meluora Solutions", size: 18, font: "Arial", color: TEAL }),
+              new TextRun({ text: "Koko Marketplace  |  Marketing Strategy & Proposal", size: 18, font: BODY_FONT, color: MID }),
+              new TextRun({ text: "  |  Meluora Solutions", size: 18, font: BODY_FONT, color: TEAL }),
             ]
           })
         ]
@@ -198,9 +200,9 @@ async function generate() {
             spacing: { before: 80 },
             border: { top: { style: BorderStyle.SINGLE, size: 2, color: LIGHT_BORDER, space: 4 } },
             children: [
-              new TextRun({ text: "Confidential  |  June 1, 2026", size: 18, font: "Arial", color: MID }),
-              new TextRun({ text: "\tPage ", size: 18, font: "Arial", color: MID }),
-              new PageNumber({ size: 18, font: "Arial", color: MID }),
+              new TextRun({ text: "Confidential  |  June 1, 2026", size: 18, font: BODY_FONT, color: MID }),
+              new TextRun({ text: "\tPage ", size: 18, font: BODY_FONT, color: MID }),
+              new PageNumber({ size: 18, font: BODY_FONT, color: MID }),
             ]
           })
         ]
@@ -217,12 +219,12 @@ async function generate() {
       new Paragraph({
         alignment: AlignmentType.CENTER,
         spacing: { before: 0, after: 80 },
-        children: [new TextRun({ text: "KOKO MARKETPLACE", size: 56, bold: true, font: "Arial", color: TEAL })]
+        children: [new TextRun({ text: "KOKO MARKETPLACE", size: 56, bold: true, font: HEADING_FONT, color: TEAL })]
       }),
       new Paragraph({
         alignment: AlignmentType.CENTER,
         spacing: { before: 0, after: 240 },
-        children: [new TextRun({ text: "Marketing Strategy & Proposal", size: 36, font: "Arial", color: MID })]
+        children: [new TextRun({ text: "Marketing Strategy & Proposal", size: 36, font: BODY_FONT, color: MID })]
       }),
       new Table({
         width: { size: 6000, type: WidthType.DXA },
@@ -230,13 +232,13 @@ async function generate() {
         alignment: AlignmentType.CENTER,
         rows: [new TableRow({ children: [new TableCell({
           borders: noBorders,
-          shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR },
+          shading: { fill: DARK, type: ShadingType.CLEAR },
           width: { size: 6000, type: WidthType.DXA },
           margins: { top: 200, bottom: 200, left: 300, right: 300 },
           children: [
-            new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Prepared for: King Kosi & Koko Team", size: 22, font: "Arial", color: TEAL })] }),
-            new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Prepared by: Meluora Solutions", size: 22, font: "Arial", color: TEAL })] }),
-            new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Date: June 1, 2026  |  Delivery Target: June 6, 2026", size: 22, font: "Arial", color: TEAL })] }),
+            new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Prepared for: King Kosi & Koko Team", size: 22, font: BODY_FONT, color: TEAL_LIGHT })] }),
+            new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Prepared by: Meluora Solutions", size: 22, font: BODY_FONT, color: TEAL_LIGHT })] }),
+            new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Date: June 1, 2026  |  Delivery Target: June 6, 2026", size: 22, font: BODY_FONT, color: TEAL_LIGHT })] }),
           ]
         })]})]}),
       ...spacer(2),
@@ -317,11 +319,11 @@ async function generate() {
       new Paragraph({
         spacing: { before: 60, after: 100 },
         children: [
-          new TextRun({ text: "Establish on-the-ground presence across Nigeria through student ambassadors, local influencers, and community partnerships. We propose a dual-layered approach to community growth: a broad ", size: 22, font: "Arial", color: DARK }),
-          new TextRun({ text: "Referral Engine", size: 22, font: "Arial", color: DARK, italics: true }),
-          new TextRun({ text: " for all users and a curated ", size: 22, font: "Arial", color: DARK }),
-          new TextRun({ text: "Ambassador Pilot", size: 22, font: "Arial", color: DARK, italics: true }),
-          new TextRun({ text: " for high-impact advocates.", size: 22, font: "Arial", color: DARK }),
+          new TextRun({ text: "Establish on-the-ground presence across Nigeria through student ambassadors, local influencers, and community partnerships. We propose a dual-layered approach to community growth: a broad ", size: 22, font: BODY_FONT, color: DARK }),
+          new TextRun({ text: "Referral Engine", size: 22, font: BODY_FONT, color: DARK, italics: true }),
+          new TextRun({ text: " for all users and a curated ", size: 22, font: BODY_FONT, color: DARK }),
+          new TextRun({ text: "Ambassador Pilot", size: 22, font: BODY_FONT, color: DARK, italics: true }),
+          new TextRun({ text: " for high-impact advocates.", size: 22, font: BODY_FONT, color: DARK }),
         ]
       }),
       heading3("Student Ambassador Program"),
@@ -412,7 +414,7 @@ async function generate() {
                 shading: { fill: TEAL, type: ShadingType.CLEAR },
                 width: { size: 2340, type: WidthType.DXA },
                 margins: { top: 80, bottom: 80, left: 120, right: 120 },
-                children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: "Arial", bold: true, color: WHITE })] })]
+                children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: BODY_FONT, bold: true, color: WHITE })] })]
               })
             )
           }),
@@ -451,7 +453,7 @@ async function generate() {
                 shading: { fill: TEAL, type: ShadingType.CLEAR },
                 width: { size: [2000,1600,5760][i], type: WidthType.DXA },
                 margins: { top: 80, bottom: 80, left: 120, right: 120 },
-                children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: "Arial", bold: true, color: WHITE })] })]
+                children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: BODY_FONT, bold: true, color: WHITE })] })]
               })
             )
           }),
@@ -462,9 +464,9 @@ async function generate() {
             ["Phase 4: Scale", "Months 4–6", "Expand ambassador program, increase ad budget, strategic partnerships, international expansion planning"],
           ].map(([phase, period, activities], idx) => new TableRow({
             children: [
-              new TableCell({ borders, shading: { fill: idx % 2 === 0 ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 2000, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: phase, size: 20, font: "Arial", bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: idx % 2 === 0 ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 1600, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: period, size: 20, font: "Arial", color: DARK })] })] }),
-              new TableCell({ borders, shading: { fill: idx % 2 === 0 ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 5760, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: activities, size: 20, font: "Arial", color: DARK })] })] }),
+              new TableCell({ borders, shading: { fill: idx % 2 === 0 ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 2000, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: phase, size: 20, font: BODY_FONT, bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: idx % 2 === 0 ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 1600, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: period, size: 20, font: BODY_FONT, color: DARK })] })] }),
+              new TableCell({ borders, shading: { fill: idx % 2 === 0 ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 5760, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: activities, size: 20, font: BODY_FONT, color: DARK })] })] }),
             ]
           }))
         ]
@@ -486,7 +488,7 @@ async function generate() {
                 shading: { fill: TEAL, type: ShadingType.CLEAR },
                 width: { size: [3120, 2120, 4120][i], type: WidthType.DXA },
                 margins: { top: 80, bottom: 80, left: 120, right: 120 },
-                children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: "Arial", bold: true, color: WHITE })] })]
+                children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: BODY_FONT, bold: true, color: WHITE })] })]
               })
             )
           }),
@@ -497,9 +499,9 @@ async function generate() {
           budgetRow("Contingency / Tools", "N100,000", "Buffer & software subscriptions"),
           new TableRow({
             children: [
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 3120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "TOTAL", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "N2,900,000+", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "Base: " + formatCAD(2900000) + " / month", size: 22, font: "Arial", bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 3120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "TOTAL", size: 22, font: BODY_FONT, bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "N2,900,000+", size: 22, font: BODY_FONT, bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "Base: " + formatCAD(2900000) + " / month", size: 22, font: BODY_FONT, bold: true, color: TEAL })] })] }),
             ]
           }),
         ]
@@ -522,22 +524,22 @@ async function generate() {
                 shading: { fill: TEAL, type: ShadingType.CLEAR },
                 width: { size: [2800,1280,1280,3800][i], type: WidthType.DXA },
                 margins: { top: 80, bottom: 80, left: 120, right: 120 },
-                children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: "Arial", bold: true, color: WHITE })] })]
+                children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: BODY_FONT, bold: true, color: WHITE })] })]
               })
             )
           }),
           ...[
             ["Low engagement on social media", "Medium", "High", "A/B test content, adjust posting times, increase influencer partnerships", true],
-            ["High customer acquisition cost", "Medium", "Medium", "Optimise ad targeting, improve landing pages, leverage organic referrals", false],
+            ["High customer acquisition cost", "Medium", "Medium", "Optimize ad targeting, improve landing pages, leverage organic referrals", false],
             ["Ambassador program dropout", "Medium", "Medium", "Competitive incentives, regular communication, recognition programs", true],
-            ["Competitive pressure", "High", "High", "Emphasise unique value prop, build community loyalty, innovate features", false],
+            ["Competitive pressure", "High", "High", "Emphasize unique value prop, build community loyalty, innovate features", false],
             ["Platform algorithm changes", "High", "Medium", "Diversify channels, build email list, create owned community", true],
           ].map(([risk, likelihood, impact, mitigation, shaded]) => new TableRow({
             children: [
-              new TableCell({ borders, shading: { fill: shaded ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 2800, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: risk, size: 20, font: "Arial", color: DARK })] })] }),
-              new TableCell({ borders, shading: { fill: shaded ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 1280, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: likelihood, size: 20, font: "Arial", color: likelihood === "High" ? "993C1D" : "854F0B" })] })] }),
-              new TableCell({ borders, shading: { fill: shaded ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 1280, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: impact, size: 20, font: "Arial", color: impact === "High" ? "993C1D" : DARK })] })] }),
-              new TableCell({ borders, shading: { fill: shaded ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 3800, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: mitigation, size: 20, font: "Arial", color: DARK })] })] }),
+              new TableCell({ borders, shading: { fill: shaded ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 2800, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: risk, size: 20, font: BODY_FONT, color: DARK })] })] }),
+              new TableCell({ borders, shading: { fill: shaded ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 1280, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: likelihood, size: 20, font: BODY_FONT, color: likelihood === "High" ? "993C1D" : "854F0B" })] })] }),
+              new TableCell({ borders, shading: { fill: shaded ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 1280, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: impact, size: 20, font: BODY_FONT, color: impact === "High" ? "993C1D" : DARK })] })] }),
+              new TableCell({ borders, shading: { fill: shaded ? "F2FAF7" : WHITE, type: ShadingType.CLEAR }, width: { size: 3800, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: mitigation, size: 20, font: BODY_FONT, color: DARK })] })] }),
             ]
           }))
         ]
@@ -563,7 +565,8 @@ async function generate() {
       // CONCLUSION
       heading1("Conclusion"),
       sectionDivider(),
-      body("Koko has achieved impressive organic growth with 2,000+ downloads across multiple countries. This marketing strategy is designed to capitalise on that momentum while establishing a strong, consistent brand presence that drives daily engagement and sustainable growth."),
+      body("Koko has achieved impressive organic growth with 2,000+ downloads across multiple countries. This marketing strategy is designed to capitalize on that momentum while establishing a strong, consistent brand presence that drives daily engagement and sustainable growth."),
+      body("Build Today. Scale Tomorrow.", { bold: true, alignment: AlignmentType.CENTER }),
       body("By implementing this comprehensive strategy across brand positioning, social media, community building, user engagement, and paid advertising, Koko can realistically achieve:"),
       bullet("50,000 Monthly Active Users within 6 months"),
       bullet("Strong brand recognition across Nigeria"),
@@ -574,11 +577,11 @@ async function generate() {
       new Paragraph({
         alignment: AlignmentType.CENTER,
         spacing: { before: 200, after: 100 },
-        children: [new TextRun({ text: "Kenneth Nwafor  |  Meluora Solutions Lead", size: 22, font: "Arial", bold: true, color: TEAL })]
+        children: [new TextRun({ text: "Kenneth Nwafor  |  Meluora Solutions Lead", size: 22, font: HEADING_FONT, bold: true, color: TEAL })]
       }),
       new Paragraph({
         alignment: AlignmentType.CENTER,
-        children: [new TextRun({ text: "kenneth@meluora.com", size: 20, font: "Arial", color: MID })]
+        children: [new TextRun({ text: "kenneth@meluora.com", size: 20, font: BODY_FONT, color: MID })]
       }),
     ]
   }]
