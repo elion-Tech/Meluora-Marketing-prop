@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koko Marketplace - Marketing Strategy & Proposal</title>
+    <style>
+        :root {
+            --teal: #0F6E56;
+            --teal-light: #E1F5EE;
+            --teal-mid: #1D9E75;
+            --dark: #1A1A1A;
+            --mid: #444441;
+            --light-border: #CCCCCC;
+            --white: #FFFFFF;
+            --shaded: #F2FAF7;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: var(--dark);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--white);
+            padding: 60px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 2px solid var(--teal-mid);
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+            font-size: 14px;
+            color: var(--mid);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        header span.highlight {
+            color: var(--teal);
+        }
+
+        .cover {
+            text-align: center;
+            margin: 100px 0;
+        }
+
+        .cover h1 {
+            font-size: 48px;
+            color: var(--teal);
+            margin-bottom: 10px;
+        }
+
+        .cover h2 {
+            font-size: 28px;
+            color: var(--mid);
+            font-weight: normal;
+            margin-bottom: 40px;
+        }
+
+        .prepared-box {
+            background-color: var(--teal-light);
+            padding: 30px;
+            display: inline-block;
+            width: 80%;
+            color: var(--teal);
+            border-radius: 4px;
+        }
+
+        h1 { font-size: 28px; color: var(--dark); border-bottom: 2px solid var(--teal-mid); padding-bottom: 5px; margin-top: 40px; }
+        h2 { font-size: 22px; color: var(--teal); margin-top: 30px; }
+        h3 { font-size: 18px; color: var(--mid); margin-top: 20px; }
+
+        p { margin: 10px 0; font-size: 16px; }
+        .italics { font-style: italic; color: var(--mid); }
+        .bold { font-weight: bold; }
+
+        ul { margin: 10px 0; padding-left: 25px; }
+        li { margin-bottom: 5px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: var(--teal);
+            color: var(--white);
+            text-align: left;
+            padding: 12px;
+            border: 1px solid var(--light-border);
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid var(--light-border);
+            vertical-align: top;
+        }
+
+        .shaded { background-color: var(--shaded); }
+        .total-row { background-color: var(--teal-light); font-weight: bold; color: var(--teal); }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 10px;
+            border-top: 1px solid var(--light-border);
+            font-size: 12px;
+            color: var(--mid);
+            text-align: right;
+        }
+
+        .signature {
+            text-align: center;
+            margin-top: 60px;
+        }
+        .signature .name { color: var(--teal); font-weight: bold; font-size: 18px; }
+
+        /* Currency Toggle Styles */
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .controls button {
+            background: var(--white);
+            border: 1px solid var(--teal);
+            color: var(--teal);
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .controls button.active { background: var(--teal); color: var(--white); }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <header>
+        <div>Koko Marketplace  |  Marketing Strategy & Proposal</div>
+        <div class="highlight">Meluora Consulting</div>
+    </header>
+
+    <div class="controls">
+        <button id="btn-ngn" class="active" onclick="updateCurrency('NGN')">₦ NGN</button>
+        <button id="btn-cad" onclick="updateCurrency('CAD')">$ CAD</button>
+    </div>
+
+    <section class="cover">
+        <h1>KOKO MARKETPLACE</h1>
+        <h2>Marketing Strategy & Proposal</h2>
+        <div class="prepared-box">
+            <p>Prepared for: King Kosi & Koko Team</p>
+            <p>Prepared by: Meluora Consulting</p>
+            <p>Date: June 1, 2026  |  Delivery Target: June 6, 2026</p>
+        </div>
+    </section>
+
+    <h1>Executive Summary</h1>
+    <p>Koko is a peer-to-peer marketplace platform with a unique value proposition centered on negotiation-driven commerce — a feature deeply rooted in African cultural trading traditions. With over 2,000 downloads across multiple countries (Nigeria, Indonesia, Pakistan, Nepal, Bangladesh, Sri Lanka, Ghana, and India), the platform has achieved organic international traction.</p>
+    <p>This proposal outlines a comprehensive 6-month marketing strategy designed to:</p>
+    <ul>
+        <li>Establish strong brand identity and positioning</li>
+        <li>Build direct audience engagement beyond influencer dependency</li>
+        <li>Drive daily active user engagement and retention</li>
+        <li>Scale user acquisition across Nigeria and international markets</li>
+        <li>Create sustainable, measurable growth with clear KPIs</li>
+    </ul>
+
+    <h1>Revised Scope of Work</h1>
+    
+    <h2>1. Brand Strategy & Positioning</h2>
+    <ul>
+        <li>Brand audit & messaging framework</li>
+        <li>Brand voice and communication guidelines</li>
+        <li>Social media optimization & email/comm setup</li>
+        <li>Campaign positioning and launch strategy</li>
+    </ul>
+
+    <h2>2. Content Production</h2>
+    <h3>Graphic Design</h3>
+    <p>Social media graphics, promotional flyers, campaign creatives, and user testimonial designs.</p>
+    <p class="italics">Deliverable: 12–20 graphics monthly</p>
+
+    <h3>Motion Graphics</h3>
+    <p>Animated social posts, product showcase animations, and feature highlight videos.</p>
+    <p class="italics">Deliverable: 4–8 motion graphics monthly</p>
+
+    <h3>Marketing Videos</h3>
+    <p>Brand story videos, professionally edited user testimonials, and app demonstrations.</p>
+    <p class="italics">Deliverable: 2–4 professionally edited videos monthly</p>
+
+    <h2>3. Content Calendar Management</h2>
+    <p>Monthly content planning including themes, weekly posting schedules, and trend integration.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Week</th>
+                <th>Focus</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Week 1</td><td>Brand Awareness</td></tr>
+            <tr class="shaded"><td>Week 2</td><td>User Education</td></tr>
+            <tr><td>Week 3</td><td>Community Engagement</td></tr>
+            <tr class="shaded"><td>Week 4</td><td>Conversion Campaign</td></tr>
+        </tbody>
+    </table>
+
+    <h2>4. Social Media Management</h2>
+    <p>Platforms: Facebook, Instagram, TikTok, Snapchat, X (Twitter).</p>
+    <ul>
+        <li>Content publishing & community management</li>
+        <li>Audience engagement & DM management</li>
+        <li>Social listening & Monthly reporting</li>
+    </ul>
+
+    <h2>5. Advertising & Campaign Management</h2>
+    <ul>
+        <li><strong>Campaign Planning:</strong> Objectives, targeting, and creative development.</li>
+        <li><strong>Execution:</strong> Meta Ads (FB/IG), TikTok Ads, and Google Ads.</li>
+        <li><strong>Optimization:</strong> Weekly monitoring, creative testing, and budget optimization.</li>
+    </ul>
+
+    <h2>6. Referral & Ambassador Program (Special Program)</h2>
+    <p>We propose a dual-layered approach to community growth: a broad **Referral Engine** for all users and a curated **Ambassador Pilot** for high-impact advocates.</p>
+
+    <h3>6.1 The Referral Engine (Viral Growth)</h3>
+    <p>Designed to lower customer acquisition costs (CAC) by incentivizing the existing user base to invite their network.</p>
+    <ul>
+        <li><strong>The Mechanic:</strong> "Give NGN 500, Get NGN 500" (credited as platform tokens/badges) or priority listing status for sellers who refer others.</li>
+        <li><strong>Gamification:</strong> "Top Referrer" leaderboards with monthly prizes to spark competition.</li>
+        <li><strong>Trust Factor:</strong> In-app badges like "Trusted Referrer" to enhance the negotiator's profile.</li>
+    </ul>
+
+    <h3>6.2 The Ambassador Pilot (Phased Rollout)</h3>
+    <p>Starting in **Month 3**, we will recruit 10–15 "Koko Champions" in high-density markets (Lagos, Abuja, Port Harcourt) and major university campuses.</p>
+    <ul>
+        <li><strong>Recruitment:</strong> Focused on campus leaders, micro-influencers, and the most active 1% of Koko users.</li>
+        <li><strong>Primary Tasks:</strong> Local "negotiation" workshops, campus demo sessions, and content creation for TikTok/Reels.</li>
+        <li><strong>Performance Tracking:</strong> Each ambassador receives a unique trackable link/code to monitor their direct impact on app installs and active listings.</li>
+    </ul>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Program Component</th>
+                <th style="text-align: right;">Monthly Budget</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="shaded"><td>Ambassador Stipends (10-15 People)</td><td class="bold price" data-val="100000">₦100,000</td></tr>
+            <tr><td>Referral Rewards Pool (User Incentives)</td><td class="bold price" data-val="50000">₦50,000</td></tr>
+            <tr class="shaded"><td>Branded Merchandise (Shirts, Caps, Stickers)</td><td class="bold price" data-val="50000">₦50,000</td></tr>
+            <tr class="total-row">
+                <td>ESTIMATED PILOT TOTAL (Starts Month 3)</td>
+                <td class="price" data-val="200000">₦200,000</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>7. Email Marketing & CRM</h2>
+    <ul>
+        <li>Newsletter creation & user onboarding flows</li>
+        <li>Re-engagement and promotional campaigns</li>
+        <li>User segmentation</li>
+    </ul>
+
+    <h2>8. Analytics & Reporting</h2>
+    <p>Monthly reporting on downloads, active users, engagement rates, and ad performance.</p>
+
+    <h1>Revised 6-Month Success Targets</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>KPI</th>
+                <th>Current</th>
+                <th>6-Month Target</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="shaded">
+                <td>App Downloads</td>
+                <td>2,000</td>
+                <td class="bold" style="color: var(--teal)">15,000</td>
+            </tr>
+            <tr>
+                <td>Monthly Active Users</td>
+                <td>~2,000</td>
+                <td class="bold" style="color: var(--teal)">5,000 – 7,000</td>
+            </tr>
+            <tr class="shaded">
+                <td>Transactions</td>
+                <td>Unknown</td>
+                <td class="bold" style="color: var(--teal)">300 – 600 / month</td>
+            </tr>
+            <tr>
+                <td>Instagram Followers</td>
+                <td>-</td>
+                <td class="bold" style="color: var(--teal)">5,000+</td>
+            </tr>
+            <tr class="shaded">
+                <td>TikTok Followers</td>
+                <td>-</td>
+                <td class="bold" style="color: var(--teal)">10,000+</td>
+            </tr>
+            <tr>
+                <td>Email Subscribers</td>
+                <td>-</td>
+                <td class="bold" style="color: var(--teal)">2,000+</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>Implementation Timeline</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Phase</th>
+                <th>Period</th>
+                <th>Key Activities</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="shaded">
+                <td class="bold" style="color: var(--teal)">Phase 1: Foundation</td>
+                <td>Weeks 1–2</td>
+                <td>Brand positioning, email setup, content calendar, ambassador recruitment</td>
+            </tr>
+            <tr>
+                <td class="bold" style="color: var(--teal)">Phase 2: Launch</td>
+                <td>Weeks 3–4</td>
+                <td>Social content execution, paid campaigns live, ambassador onboarding</td>
+            </tr>
+            <tr class="shaded">
+                <td class="bold" style="color: var(--teal)">Phase 3: Optimise</td>
+                <td>Weeks 5–12</td>
+                <td>Continuous content, campaign monitoring, community events</td>
+            </tr>
+            <tr>
+                <td class="bold" style="color: var(--teal)">Phase 4: Scale</td>
+                <td>Months 4–6</td>
+                <td>Expand ambassador program, increase ad budget, international expansion</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>1. Professional Services Fee (Fixed)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th style="text-align: right;">Monthly Fee</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="shaded"><td>Strategy & Planning</td><td class="bold price" data-val="300000">₦300,000</td></tr>
+            <tr><td>Content Creation</td><td class="bold price" data-val="400000">₦400,000</td></tr>
+            <tr class="shaded"><td>Motion Graphics</td><td class="bold price" data-val="200000">₦200,000</td></tr>
+            <tr><td>Video Production</td><td class="bold price" data-val="250000">₦250,000</td></tr>
+            <tr class="shaded"><td>Social Media Management</td><td class="bold price" data-val="200000">₦200,000</td></tr>
+            <tr><td>Campaign Management & Reporting</td><td class="bold price" data-val="150000">₦150,000</td></tr>
+            <tr class="total-row">
+                <td>TOTAL MONTHLY RETAINER</td>
+                <td class="price" data-val="1500000">₦1,500,000</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="bold">6-Month Service Investment: <span class="price" data-val="9000000">₦9,000,000</span></p>
+
+    <h1>2. Recommended Advertising Budget (Variable)</h1>
+    <p class="italics" style="font-size: 14px;">Advertising and special program spends are separate from professional service fees. Monthly budgets are recommended based on growth objectives and are subject to management approval before deployment.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th style="text-align: right;">Suggested Monthly Budget</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="shaded"><td>Meta (Facebook & Instagram)</td><td class="bold price" data-val="300000">₦300,000</td></tr>
+            <tr><td>Google Ads</td><td class="bold price" data-val="300000">₦300,000</td></tr>
+            <tr class="shaded"><td>TikTok Ads</td><td class="bold price" data-val="200000">₦200,000</td></tr>
+            <tr><td>Testing & Retargeting</td><td class="bold price" data-val="200000">₦200,000</td></tr>
+            <tr class="shaded"><td>Ambassador Program (Optional)</td><td class="bold price" data-val-min="200000" data-val-max="400000">₦200,000 – ₦400,000</td></tr>
+            <tr class="total-row">
+                <td>ESTIMATED MONTHLY MARKETING BUDGET</td>
+                <td class="price" data-val-min="1200000" data-val-max="1400000">₦1,200,000 – ₦1,400,000</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>3. Estimated Project Value (6 Months)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th style="text-align: right;">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="shaded"><td>Professional Services</td><td class="bold price" data-val="9000000">₦9,000,000</td></tr>
+            <tr><td>Estimated Advertising Budget</td><td class="bold price" data-val="6000000">₦6,000,000</td></tr>
+            <tr class="shaded"><td>Ambassador Program</td><td class="bold price" data-val-min="1200000" data-val-max="2400000">₦1,200,000 – ₦2,400,000</td></tr>
+            <tr class="total-row">
+                <td>ESTIMATED TOTAL INVESTMENT</td>
+                <td class="price" data-val-min="16200000" data-val-max="17400000">₦16,200,000 – ₦17,400,000</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="italics" style="font-size: 13px; color: var(--mid);">
+        The Ambassador Program is optional and may be introduced in phases based on campaign performance, available resources, and management approval. Advertising and ambassador budgets are estimates provided for planning purposes and are not a contractual commitment.
+    </p>
+
+    <h1>Risk Mitigation</h1>
+    <table style="text-align: left;">
+        <thead>
+            <tr>
+                <th>Risk</th>
+                <th>Likelihood</th>
+                <th>Impact</th>
+                <th>Mitigation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="shaded">
+                <td>Low engagement</td>
+                <td style="color: #854F0B">Medium</td>
+                <td style="color: #993C1D">High</td>
+                <td>A/B test content, adjust times, increase partnerships</td>
+            </tr>
+            <tr>
+                <td>Competitive pressure</td>
+                <td style="color: #993C1D">High</td>
+                <td style="color: #993C1D">High</td>
+                <td>Emphasise unique value prop, build community loyalty</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>Conclusion</h1>
+    <p>Koko has achieved impressive organic growth with 2,000+ downloads across multiple countries. This marketing strategy is designed to capitalise on that momentum while establishing a strong, consistent brand presence that drives daily engagement and sustainable growth.</p>
+    
+    <ul>
+        <li>15,000 App Downloads within 6 months</li>
+        <li>Strong brand recognition across Nigeria</li>
+        <li>Sustainable community growth through strategic content and engagement</li>
+    </ul>
+
+    <div class="signature">
+        <div class="name">Kenneth Nwafor  |  Meluora Team Lead</div>
+        <div style="color: var(--mid)">kenneth@meluora.com</div>
+    </div>
+
+    <footer>
+        Confidential  |  June 1, 2026  |  Page 1
+    </footer>
+</div>
+
+<script>
+    const EX_RATE = 1150; // 1 CAD = 1150 NGN (approximate)
+
+    function updateCurrency(currency) {
+        const prices = document.querySelectorAll('.price');
+        const btnNgn = document.getElementById('btn-ngn');
+        const btnCad = document.getElementById('btn-cad');
+
+        btnNgn.classList.toggle('active', currency === 'NGN');
+        btnCad.classList.toggle('active', currency === 'CAD');
+
+        prices.forEach(p => {
+            const val = p.getAttribute('data-val');
+            const valMin = p.getAttribute('data-val-min');
+            const valMax = p.getAttribute('data-val-max');
+
+            const format = (v) => {
+                if (currency === 'CAD') {
+                    return `$${(v / EX_RATE).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} CAD`;
+                }
+                return `₦${parseInt(v).toLocaleString()}`;
+            };
+
+            if (valMin && valMax) {
+                p.innerText = `${format(valMin)} – ${format(valMax)}`;
+            } else if (val) {
+                p.innerText = format(val);
+            }
+        });
+    }
+</script>
+</body>
+</html>
