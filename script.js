@@ -525,8 +525,8 @@ async function generate() {
         spacing: { before: 60, after: 100 },
         children: [
           new TextRun({ text: "Estimated 6-Month Total (Base): ", bold: true, size: 22, font: BODY_FONT, color: DARK }),
-          new TextRun({ text: "N17,400,000 ", size: 22, font: BODY_FONT, strike: true, color: "999999" }),
-          new TextRun({ text: "N15,000,000 (" + formatCAD(15000000) + ")", bold: true, size: 22, font: BODY_FONT, color: DARK })
+          new TextRun({ text: "N16,800,000 ", size: 22, font: BODY_FONT, strike: true, color: "999999" }),
+          new TextRun({ text: "N14,400,000 (" + formatCAD(14400000) + ")", bold: true, size: 22, font: BODY_FONT, color: DARK })
         ]
       }),
       ...spacer(1),
