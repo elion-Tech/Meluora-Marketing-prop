@@ -105,15 +105,24 @@ function metricRow(metric, baseline, month3, month6, shaded = false) {
   return new TableRow({ children: [cell(metric), cell(baseline), cell(month3, true), cell(month6, true)] });
 }
 
-function budgetRow(category, amount, notes, shaded = false) {
+function budgetRow(category, amount, notes, shaded = false, oldAmount = null) {
   const fill = shaded ? "F2FAF7" : WHITE;
-  const cell = (txt, w, bold = false) => new TableCell({
-    borders,
-    width: { size: w, type: WidthType.DXA },
-    shading: { fill, type: ShadingType.CLEAR },
-    margins: { top: 80, bottom: 80, left: 120, right: 120 },
-    children: [new Paragraph({ children: [new TextRun({ text: txt, size: 20, font: BODY_FONT, bold, color: bold ? TEAL : DARK })] })]
-  });
+  const cell = (txt, w, bold = false) => {
+    const children = [];
+    if (oldAmount && w === 2120) {
+      children.push(new TextRun({ text: oldAmount + " ", size: 18, font: BODY_FONT, strike: true, color: "999999" }));
+      children.push(new TextRun({ text: amount, size: 20, font: BODY_FONT, bold: true, color: TEAL }));
+    } else {
+      children.push(new TextRun({ text: txt, size: 20, font: BODY_FONT, bold, color: bold ? TEAL : DARK }));
+    }
+    return new TableCell({
+      borders,
+      width: { size: w, type: WidthType.DXA },
+      shading: { fill, type: ShadingType.CLEAR },
+      margins: { top: 80, bottom: 80, left: 120, right: 120 },
+      children: [new Paragraph({ children })]
+    });
+  };
   return new TableRow({ children: [cell(category, 3120), cell(amount, 2120, true), cell(notes, 4120)] });
 }
 
@@ -123,7 +132,7 @@ async function generate() {
     type: 'doughnut',
     data: {
       labels: ['Strategy', 'Content', 'Motion', 'Video', 'Social', 'Campaigns'],
-      datasets: [{ data: [300000, 400000, 200000, 250000, 200000, 150000], backgroundColor: ['#051F20', '#0B2B26', '#163832', '#235347', '#8EB69B', '#DAF1DE'] }]
+      datasets: [{ data: [150000, 300000, 200000, 200000, 150000, 100000], backgroundColor: ['#051F20', '#0B2B26', '#163832', '#235347', '#8EB69B', '#DAF1DE'] }]
     },
     options: { plugins: { legend: { position: 'bottom' } } }
   });
@@ -492,7 +501,7 @@ async function generate() {
               })
             )
           }),
-          budgetRow("Monthly Retainer", "N1,500,000", "Strategy, Content, Motion, Video, Social", true),
+          budgetRow("Monthly Retainer", "N1,100,000", "Strategy, Content, Motion, Video, Social", true, "N1,500,000"),
           budgetRow("Advertising Budget (Rec.)", "N1,000,000", "Meta, Google, TikTok, Retargeting"),
           budgetRow("Ambassador Pilot (Month 3+)", "N300,000", "Incentives, Merchandise, Stipends (200k)", true),
           budgetRow("Influencer Management (Opt.)", "N500,000+", "Optional: Sourcing, Partnership fees & Management"),
@@ -500,13 +509,26 @@ async function generate() {
           new TableRow({
             children: [
               new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 3120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "TOTAL", size: 22, font: BODY_FONT, bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "N2,900,000+", size: 22, font: BODY_FONT, bold: true, color: TEAL })] })] }),
-              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "Base: " + formatCAD(2900000) + " / month", size: 22, font: BODY_FONT, bold: true, color: TEAL })] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [
+                new TextRun({ text: "N2,900,000 ", size: 18, font: BODY_FONT, strike: true, color: "999999" }),
+                new TextRun({ text: "N2,500,000+", size: 22, font: BODY_FONT, bold: true, color: TEAL })
+              ] })] }),
+              new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [
+                new TextRun({ text: "Base: " + formatCAD(2900000) + " ", size: 18, font: BODY_FONT, strike: true, color: "999999" }),
+                new TextRun({ text: formatCAD(2500000) + " / month", size: 22, font: BODY_FONT, bold: true, color: TEAL })
+              ] })] }),
             ]
           }),
         ]
       }),
-      body("Estimated 6-Month Total (Base): N17,400,000 (" + formatCAD(17400000) + ")", { bold: true }),
+      new Paragraph({
+        spacing: { before: 60, after: 100 },
+        children: [
+          new TextRun({ text: "Estimated 6-Month Total (Base): ", bold: true, size: 22, font: BODY_FONT, color: DARK }),
+          new TextRun({ text: "N17,400,000 ", size: 22, font: BODY_FONT, strike: true, color: "999999" }),
+          new TextRun({ text: "N15,000,000 (" + formatCAD(15000000) + ")", bold: true, size: 22, font: BODY_FONT, color: DARK })
+        ]
+      }),
       ...spacer(1),
 
       // RISK
