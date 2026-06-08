@@ -502,8 +502,7 @@ async function generate() {
             )
           }),
           budgetRow("Monthly Retainer", "N1,100,000", "Strategy, Content, Motion, Video, Social", true, "N1,500,000"),
-          budgetRow("Advertising Budget (Rec.)", "N1,000,000", "Meta, Google, TikTok, Retargeting"),
-          budgetRow("Ambassador Pilot (Month 3+)", "N300,000", "Incentives, Merchandise, Stipends (200k)", true),
+          budgetRow("Advertising Budget (Rec.)", "N800,000", "Meta, Google, TikTok"),
           budgetRow("Influencer Management (Opt.)", "N500,000+", "Optional: Sourcing, Partnership fees & Management"),
           budgetRow("Contingency / Tools", "N100,000", "Buffer & software subscriptions"),
           new TableRow({
@@ -526,7 +525,7 @@ async function generate() {
         children: [
           new TextRun({ text: "Estimated 6-Month Total (Base): ", bold: true, size: 22, font: BODY_FONT, color: DARK }),
           new TextRun({ text: "N16,800,000 ", size: 22, font: BODY_FONT, strike: true, color: "999999" }),
-          new TextRun({ text: "N14,400,000 (" + formatCAD(14400000) + ")", bold: true, size: 22, font: BODY_FONT, color: DARK })
+          new TextRun({ text: "N12,900,000 (" + formatCAD(12900000) + ")", bold: true, size: 22, font: BODY_FONT, color: DARK })
         ]
       }),
       ...spacer(1),
