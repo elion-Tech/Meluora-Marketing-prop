@@ -503,18 +503,17 @@ async function generate() {
           }),
           budgetRow("Monthly Retainer", "N1,100,000", "Strategy, Content, Motion, Video, Social", true, "N1,500,000"),
           budgetRow("Advertising Budget (Rec.)", "N800,000", "Meta, Google, TikTok"),
-          budgetRow("Influencer Management (Opt.)", "N500,000+", "Optional: Sourcing, Partnership fees & Management"),
           budgetRow("Contingency / Tools", "N100,000", "Buffer & software subscriptions"),
           new TableRow({
             children: [
               new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 3120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [new TextRun({ text: "TOTAL", size: 22, font: BODY_FONT, bold: true, color: TEAL })] })] }),
               new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 2120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [
-                new TextRun({ text: "N2,900,000 ", size: 18, font: BODY_FONT, strike: true, color: "999999" }),
-                new TextRun({ text: "N2,500,000+", size: 22, font: BODY_FONT, bold: true, color: TEAL })
+                new TextRun({ text: "N2,600,000 ", size: 18, font: BODY_FONT, strike: true, color: "999999" }),
+                new TextRun({ text: "N2,000,000", size: 22, font: BODY_FONT, bold: true, color: TEAL })
               ] })] }),
               new TableCell({ borders, shading: { fill: TEAL_LIGHT, type: ShadingType.CLEAR }, width: { size: 4120, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ children: [
-                new TextRun({ text: "Base: " + formatCAD(2900000) + " ", size: 18, font: BODY_FONT, strike: true, color: "999999" }),
-                new TextRun({ text: formatCAD(2500000) + " / month", size: 22, font: BODY_FONT, bold: true, color: TEAL })
+                new TextRun({ text: "Base: " + formatCAD(2600000) + " ", size: 18, font: BODY_FONT, strike: true, color: "999999" }),
+                new TextRun({ text: formatCAD(2000000) + " / month", size: 22, font: BODY_FONT, bold: true, color: TEAL })
               ] })] }),
             ]
           }),
